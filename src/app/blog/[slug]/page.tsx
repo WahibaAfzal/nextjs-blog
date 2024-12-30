@@ -11,6 +11,8 @@ import React from 'react'
 import Image from 'next/image'
 import { PortableText } from '@portabletext/react';
 
+export const revalidate =30; 
+
 async function getData(slug:string){
     const qurey = `
     *[_type == "blog" && slug.current == '${slug}']{
