@@ -1,10 +1,4 @@
-// // export default function BlogArticle(){
-// //     return 
-// //      <h1>hello from the blog article route</h1>
-    
-        
-    
-// }
+
 import { fullBlog } from '@/app/lib/interface';
 import { client, urlFor } from '@/app/lib/sanity'
 import React from 'react'
@@ -15,22 +9,22 @@ export const revalidate =30;
 
 async function getData(slug:string){
     const qurey =
-//      `
-//     *[_type == "blog" && slug.current == '${slug}']{
-// "currentSlug":slug.current,
-//   title,
-//   content,
-//   titleImage
-// }[0]`
-
-`
-*[_type== "blog"] | order(_createdAt desc) {
+     `
+    *[_type == "blog" && slug.current == '${slug}']{
+"currentSlug":slug.current,
   title,
-  smalDescription,
-  "currentSlug": slug.current,
-  "titleImage": titleImage.asset->url
-}
-`;
+  content,
+  titleImage
+}[0]`
+
+// `
+// *[_type== "blog"] | order(_createdAt desc) {
+//   title,
+//   smalDescription,
+//   "currentSlug": slug.current,
+//   "titleImage": titleImage.asset->url
+// }
+// `;
 
 const data = await client.fetch(qurey);
 return data;

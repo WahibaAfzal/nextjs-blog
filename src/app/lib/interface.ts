@@ -1,3 +1,5 @@
+import { TypedObject } from "sanity";
+
 export interface simpleBlogCard {
     title: string;
     smalDescription: string;
@@ -14,7 +16,7 @@ export interface simpleBlogCard {
 export interface fullBlog {
   currentSlug: string;
   title: string;
-  content: string[];
+  content: TypedObject[];
   titleImage:  {
     asset: {
       _ref: string;
