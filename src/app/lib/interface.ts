@@ -1,13 +1,25 @@
 export interface simpleBlogCard {
     title: string;
-    smallDescription: string;
+    smalDescription: string;
     currentSlug: string;
-    titleImage: any;
+    titleImage:  {
+      asset: {
+        _ref: string;
+        _type: string;
+      };
+      alt?: string;
+    };
   }
 
 export interface fullBlog {
   currentSlug: string;
   title: string;
-  content: any;
-  titleImage: any;
+  content: string[];
+  titleImage:  {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+  };
 }  

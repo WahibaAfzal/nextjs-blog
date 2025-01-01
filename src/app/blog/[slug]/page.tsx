@@ -1,6 +1,6 @@
-// export default function BlogArticle(){
-//     return 
-//      <h1>hello from the blog article route</h1>
+// // export default function BlogArticle(){
+// //     return 
+// //      <h1>hello from the blog article route</h1>
     
         
     
@@ -14,13 +14,23 @@ import { PortableText } from '@portabletext/react';
 export const revalidate =30; 
 
 async function getData(slug:string){
-    const qurey = `
-    *[_type == "blog" && slug.current == '${slug}']{
-"currentSlug":slug.current,
+    const qurey =
+//      `
+//     *[_type == "blog" && slug.current == '${slug}']{
+// "currentSlug":slug.current,
+//   title,
+//   content,
+//   titleImage
+// }[0]`
+
+`
+*[_type== "blog"] | order(_createdAt desc) {
   title,
-  content,
-  titleImage
-}[0]`
+  smalDescription,
+  "currentSlug": slug.current,
+  "titleImage": titleImage.asset->url
+}
+`;
 
 const data = await client.fetch(qurey);
 return data;
@@ -36,7 +46,10 @@ export default async function BlogArticle({params} : {params: {slug:string}}) {
         <span className='mt-2 block text-center leading-8 font-bold tracking-tight sm:text-4xl'>{data.title}</span></h1>
 
 
-        <Image src={urlFor(data.titleImage).url()} width={800} height={800} alt='Title image' priority className='rounded-lg mt-8 border' />
+        <Image
+        // src={data.titleImage || "/fallback-image.jpg"}
+        src={data.titleImage ? urlFor(data.titleImage).url() : "/fallback-image.jpg"}
+          width={800} height={800} alt='Title image' priority className='rounded-lg mt-8 border' />
         <div className='mt-16 prose prose-blue prose-xl dark:prose-invert prose-headings:underline prose-li:marker:text-primary prose-a:text-primary'>
             <PortableText value={data.content} />
         </div>
@@ -44,4 +57,7 @@ export default async function BlogArticle({params} : {params: {slug:string}}) {
     </div>
   )
 }
+
+
+
 
