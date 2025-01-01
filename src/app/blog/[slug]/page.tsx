@@ -14,7 +14,7 @@ async function getData(slug:string){
 "currentSlug":slug.current,
   title,
   content,
-  titleImage
+  titleImage add .
 }[0]`
 
 // `
