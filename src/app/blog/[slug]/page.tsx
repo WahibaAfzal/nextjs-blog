@@ -7,28 +7,43 @@ import { PortableText } from '@portabletext/react';
 
 export const revalidate =30; 
 
-async function getData(slug:string){
-    const qurey =
-     `
+
+async function getData(slug: string) {
+    const query = `
     *[_type == "blog" && slug.current == '${slug}']{
-"currentSlug":slug.current,
-  title,
-  content,
-  titleImage add .
-}[0]`
+      "currentSlug": slug.current,
+      title,
+      content,
+      "titleImage": titleImage.asset->url
+    }[0]`;
 
-// `
-// *[_type== "blog"] | order(_createdAt desc) {
-//   title,
-//   smalDescription,
-//   "currentSlug": slug.current,
-//   "titleImage": titleImage.asset->url
-// }
-// `;
-
-const data = await client.fetch(qurey);
-return data;
+    const data = await client.fetch(query);
+    return data;
 }
+
+
+// async function getData(slug:string){
+//     const qurey =
+//      `
+//     *[_type == "blog" && slug.current == '${slug}']{
+// "currentSlug":slug.current,
+//   title,
+//   content,
+//   titleImage add .
+// }[0]`
+
+// // `
+// // *[_type== "blog"] | order(_createdAt desc) {
+// //   title,
+// //   smalDescription,
+// //   "currentSlug": slug.current,
+// //   "titleImage": titleImage.asset->url
+// // }
+// // `;
+
+// const data = await client.fetch(qurey);
+// return data;
+// }
 
 export default async function BlogArticle({params} : {params: {slug:string}}) {
     const data: fullBlog = await getData(params.slug)
